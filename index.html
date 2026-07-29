@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>技术支持 - i记</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.8;
+      color: #334155;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      padding-top: env(safe-area-inset-top);
+    }
+    .scroll-content {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 20px 40px;
+    }
+    h1 { font-size: 24px; color: #0f172a; }
+    h2 { font-size: 18px; color: #1e293b; margin-top: 28px; }
+    p { margin: 10px 0; }
+    ul { padding-left: 20px; }
+    li { margin: 6px 0; }
+    a { color: #6366f1; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #94a3b8; font-size: 13px; }
+    .header {
+      position: sticky;
+      top: 0;
+      display: flex;
+      align-items: center;
+      padding: 16px 20px 12px;
+      background: #fafafa;
+      z-index: 10;
+      min-height: 44px;
+    }
+    .header h1 {
+      flex: 1;
+      margin: 0;
+      text-align: center;
+    }
+    .app-intro {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .app-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: white;
+      margin: 0 auto 12px;
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+    }
+    .app-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .app-desc {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    .contact-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 16px 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+    .contact-card .label {
+      font-size: 12px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .contact-card .value {
+      font-size: 16px;
+      color: #1e293b;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .faq-item {
+      margin-bottom: 20px;
+    }
+    .faq-item .question {
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    .faq-item .answer {
+      color: #475569;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>技术支持</h1>
+  </div>
+  <div class="scroll-content">
+
+    <div class="app-intro">
+      <div class="app-icon">📓</div>
+      <div class="app-name">i记</div>
+      <div class="app-desc">你的 AI 生活记录伙伴 · 小红书风格日记</div>
+    </div>
+
+    <div class="contact-card">
+      <div class="label">📧 联系邮箱</div>
+      <div class="value"><a href="mailto:luyan.yuanjia@gmail.com">luyan.yuanjia@gmail.com</a></div>
+    </div>
+
+    <div class="contact-card">
+      <div class="label">⏱ 响应时间</div>
+      <div class="value">我们会在 24 小时内回复你的邮件</div>
+    </div>
+
+    <h2>常见问题</h2>
+
+    <div class="faq-item">
+      <div class="question">Q: 如何删除我的账户和数据？</div>
+      <div class="answer">在 App 内进入「我的」页面 → 点击「账户设置」→ 选择「删除账户」。删除后，你的所有日记数据和账户信息将在 30 天内彻底清除。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="question">Q: AI 写作功能如何使用？</div>
+      <div class="answer">在写日记页面，你可以点击 AI 助手按钮与 AI 对话，它会像朋友一样和你聊天，帮你整理思路。聊完后点击「生成日记」，AI 会帮你把对话总结成一篇精美的日记。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="question">Q: 我的数据安全吗？</div>
+      <div class="answer">你的日记数据仅你自己可见，存储在 Supabase 上并通过 Row-Level Security 严格隔离。AI 对话内容通过加密传输，不会用于模型训练。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="question">Q: 遇到 Bug 或闪退怎么办？</div>
+      <div class="answer">请发邮件至 <a href="mailto:luyan.yuanjia@gmail.com">luyan.yuanjia@gmail.com</a>，尽量描述你遇到的问题、操作步骤和设备型号，我们会尽快修复。</div>
+    </div>
+
+    <div class="footer">
+      <p>i记 · 记录生活每一刻</p>
+      <p>
+        <a href="https://wolaiye-bff.onrender.com/privacy.html">隐私政策</a>
+        &nbsp;·&nbsp;
+        <a href="https://wolaiye-bff.onrender.com/terms.html">使用条款</a>
+      </p>
+    </div>
+
+  </div>
+</body>
+</html>
