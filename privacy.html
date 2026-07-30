@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>隐私政策 - i记</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.8;
+      color: #334155;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      padding-top: env(safe-area-inset-top);
+    }
+    .scroll-content {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 20px 40px;
+    }
+    h1 { font-size: 24px; color: #0f172a; }
+    h2 { font-size: 18px; color: #1e293b; margin-top: 28px; }
+    p { margin: 10px 0; }
+    ul { padding-left: 20px; }
+    li { margin: 6px 0; }
+    .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #94a3b8; font-size: 13px; }
+    .header {
+      position: sticky;
+      top: 0;
+      display: flex;
+      align-items: center;
+      padding: 16px 20px 12px;
+      background: #fafafa;
+      z-index: 10;
+      min-height: 44px;
+    }
+    .header .back-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      text-decoration: none;
+      color: #475569;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .header .header-spacer {
+      width: 36px;
+      flex-shrink: 0;
+    }
+    .header h1 {
+      flex: 1;
+      margin: 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <a href="index.html" class="back-btn" aria-label="返回">←</a>
+    <h1>i记 隐私政策</h1>
+    <span class="header-spacer"></span>
+  </div>
+  <div class="scroll-content">
+  <p>最后更新日期：2026年7月28日</p>
+
+  <h2>一、信息收集</h2>
+  <p>我们仅在您主动使用时收集以下信息：</p>
+  <ul>
+    <li><strong>账户信息</strong>：通过 Apple 登录或邮箱注册时，我们获取您的基本账户标识（由 Apple 或 Supabase Auth 提供），包括用户 ID、显示名称和邮箱地址。</li>
+    <li><strong>日记内容</strong>：您撰写的日记文本、配图、地点标签，全部存储在您个人的 Supabase 账户下。</li>
+    <li><strong>设备权限</strong>：
+      <ul>
+        <li><strong>相册</strong>：仅在您选择上传图片或视频时请求读取权限，用于为日记添加配图。我们不会将媒体写入您的设备相册，也不会请求相机拍照权限。</li>
+        <li><strong>麦克风</strong>：仅在您使用语音输入时请求。录音仅用于实时转写为文字，<strong>我们不会存储任何原始音频数据</strong>。</li>
+        <li><strong>语音识别</strong>：用于将您的语音实时转换为文字。语音数据由 Apple 系统级语音识别引擎在设备端处理。</li>
+      </ul>
+      您可以随时在系统设置中撤回上述权限。
+    </li>
+  </ul>
+
+  <h2>二、信息使用</h2>
+  <p>收集的信息仅用于：</p>
+  <ul>
+    <li>提供日记创建、编辑、AI 辅助写作等核心功能。</li>
+    <li>通过 DeepSeek API 生成日记摘要、标题、内容建议、配图匹配等 AI 功能。您的日记内容通过安全的边缘计算节点中转，以加密方式传输。我们不会将您的数据用于 AI 模型训练，并采取合理措施确保第三方服务商仅在处理请求的必要时间内保留数据。</li>
+    <li>改善产品体验和修复问题。</li>
+  </ul>
+
+  <h2>三、数据存储与安全</h2>
+  <p>您的数据存储在 Supabase（AWS 托管）上，采用行业标准的加密传输（TLS）和存储加密。日记数据通过 Row-Level Security 策略隔离，仅您本人可访问。</p>
+  <p>我们会在您持续使用服务期间保留您的数据。您可以在应用中随时删除日记内容。若您选择注销账户，我们将在 30 天内彻底删除您的所有个人数据（法律另有要求的除外）。</p>
+  <p>若发生数据安全事件，我们将按照适用法律法规的要求及时通知您，并采取补救措施。</p>
+
+  <h2>四、第三方服务</h2>
+  <ul>
+    <li><strong>Supabase</strong>：提供用户认证、数据库和文件存储。参见 <a href="https://supabase.com/privacy" target="_blank">Supabase 隐私政策</a>。</li>
+    <li><strong>DeepSeek API</strong>：用于 AI 写作辅助和内容智能处理。您的日记内容通过边缘计算节点安全中转，API 调用不使用您的数据训练模型。参见 <a href="https://platform.deepseek.com/privacy" target="_blank">DeepSeek 隐私政策</a>。</li>
+    <li><strong>Unsplash</strong>：当 AI 生成图片不可用时，我们从 Unsplash 匹配高质量配图。参见 <a href="https://unsplash.com/privacy" target="_blank">Unsplash 隐私政策</a>。</li>
+    <li><strong>Apple</strong>：通过 Apple 登录时，Apple 按其隐私政策处理相关数据。语音识别由 Apple 系统级引擎在设备端完成。参见 <a href="https://www.apple.com/legal/privacy/" target="_blank">Apple 隐私政策</a>。</li>
+  </ul>
+
+  <h2>五、数据跨境传输</h2>
+  <p>我们的第三方服务商（DeepSeek、Supabase AWS）可能将数据传输至中国境外服务器进行处理。我们确保合作方均具备合规的数据保护措施，并按照适用法律（包括《中华人民共和国个人信息保护法》）的要求采取必要的安全评估和保障措施。</p>
+
+  <h2>六、儿童隐私</h2>
+  <p>本服务不面向 14 周岁以下的儿童。如果我们发现无意中收集了儿童的个人信息，将立即删除相关数据。如果您是监护人并认为您的孩子向我们提供了个人信息，请立即联系我们。</p>
+
+  <h2>七、您的权利</h2>
+  <p>根据适用的数据保护法律，您可能享有以下权利：</p>
+  <ul>
+    <li><strong>访问权</strong>：获取我们所持有的您的个人数据副本。</li>
+    <li><strong>更正权</strong>：更正不准确或不完整的个人数据。</li>
+    <li><strong>删除权</strong>：删除您的日记内容或请求完全删除您的个人数据（注销账户）。</li>
+    <li><strong>数据可携带权</strong>：以结构化、常用格式导出您的数据。</li>
+    <li><strong>撤回同意</strong>：随时撤回对非必要数据处理的同意（如设备权限）。</li>
+  </ul>
+  <p>如需行使上述权利，请联系我们。我们将在法律规定的期限内回复您的请求。</p>
+  <p>我们不会出售您的个人数据，也不会将其用于自动化决策或用户画像。</p>
+
+  <h2>八、隐私政策更新</h2>
+  <p>我们可能会不时更新本隐私政策。重大变更将通过应用内通知或邮件提前告知您。更新后的政策自发布之日起生效。</p>
+
+  <h2>九、联系我们</h2>
+  <p>如有隐私相关问题或想行使您的数据权利，请发送邮件至：<a href="mailto:imemorr@163.com"><strong>imemorr@163.com</strong></a></p>
+
+  <div class="footer">
+    <p>© 2026 i记. All rights reserved.</p>
+  </div>
+  </div>
+</body>
+</html>
