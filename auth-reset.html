@@ -19,74 +19,331 @@
       align-items: center;
       justify-content: center;
       padding: 32px 24px;
-      text-align: center;
       box-sizing: border-box;
+    }
+    .card {
+      width: 100%;
+      max-width: 360px;
+      background: #fff;
+      border: 1px solid #f1f5f9;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+      padding: 28px 24px 24px;
+      box-sizing: border-box;
+    }
+    .app-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 16px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+    }
+    .app-icon img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     h1 {
       font-size: 20px;
       color: #0f172a;
-      margin: 0 0 8px;
-      font-weight: 600;
+      margin: 0 0 6px;
+      font-weight: 700;
+      text-align: center;
     }
-    p {
-      margin: 8px 0;
-      line-height: 1.6;
+    .subtitle {
+      margin: 0 0 20px;
+      line-height: 1.5;
+      font-size: 13px;
+      color: #94a3b8;
+      text-align: center;
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #94a3b8;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .field {
+      margin-bottom: 14px;
+    }
+    input[type="password"] {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px 14px;
+      font-size: 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      background: #f8fafc;
+      color: #334155;
+      outline: none;
+      font-family: inherit;
+    }
+    input[type="password"]:focus {
+      border-color: #fb7185;
+      background: #fff;
+      box-shadow: 0 0 0 1px #fb7185;
+    }
+    button[type="submit"] {
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 12px;
+      background: #f43f5e;
+      color: #fff;
       font-size: 14px;
-      color: #64748b;
-      max-width: 320px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
     }
-    .fallback {
+    button[type="submit"]:disabled {
+      background: #fda4af;
+      cursor: not-allowed;
+    }
+    button[type="submit"]:not(:disabled):active {
+      transform: scale(0.98);
+    }
+    .msg {
       display: none;
-      margin-top: 20px;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.5;
     }
-    .fallback.visible {
+    .msg.visible { display: block; }
+    .msg.error {
+      background: #fff1f2;
+      border: 1px solid #ffe4e6;
+      color: #e11d48;
+    }
+    .msg.success {
+      background: #ecfdf5;
+      border: 1px solid #d1fae5;
+      color: #059669;
+    }
+    .msg.info {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #64748b;
+      text-align: center;
+    }
+    #form-panel, #loading-panel, #done-panel, #invalid-panel {
+      display: none;
+    }
+    #form-panel.visible, #loading-panel.visible, #done-panel.visible, #invalid-panel.visible {
       display: block;
     }
-    a {
-      color: #0f172a;
-      font-weight: 600;
+    #loading-panel, #done-panel, #invalid-panel {
+      text-align: center;
     }
+    .spinner {
+      width: 28px;
+      height: 28px;
+      margin: 8px auto 16px;
+      border: 3px solid #e2e8f0;
+      border-top-color: #f43f5e;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>正在打开 i记…</h1>
-    <p id="status">请稍候，正在跳转到 App 以设置新密码。</p>
-    <div id="fallback" class="fallback">
-      <p>若未自动打开，请确认已安装「i记」，然后点击下方链接重试：</p>
-      <p><a id="manual" href="#">打开 i记</a></p>
-      <p>仍无法打开时，请回到 App 重新发起「忘记密码」。</p>
+    <div class="card">
+      <div class="app-icon">
+        <img src="app-icon.png" alt="i记" />
+      </div>
+      <h1 id="title">设置新密码</h1>
+      <p class="subtitle" id="subtitle">请输入新的登录密码</p>
+
+      <div id="loading-panel" class="visible">
+        <div class="spinner"></div>
+        <p class="msg info visible">正在验证重置链接…</p>
+      </div>
+
+      <div id="invalid-panel">
+        <div id="invalid-msg" class="msg error visible">链接无效或已过期。请回到 App 重新申请重置密码。</div>
+      </div>
+
+      <div id="form-panel">
+        <div id="form-error" class="msg error"></div>
+        <form id="reset-form" autocomplete="on">
+          <div class="field">
+            <label for="password">新密码</label>
+            <input id="password" name="new-password" type="password" autocomplete="new-password" placeholder="至少 6 位安全密码" required minlength="6" />
+          </div>
+          <div class="field">
+            <label for="confirm">确认新密码</label>
+            <input id="confirm" name="confirm-password" type="password" autocomplete="new-password" placeholder="再次输入新密码" required minlength="6" />
+          </div>
+          <button type="submit" id="submit-btn">更新密码</button>
+        </form>
+      </div>
+
+      <div id="done-panel">
+        <div class="msg success visible">密码已更新。请打开「i记」，使用新密码登录。</div>
+      </div>
     </div>
   </div>
-  <script>
-    (function () {
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7/+esm";
+
+    var SUPABASE_URL = "https://xggxtihoxcdounwjmlcr.supabase.co";
+    var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnZ3h0aWhveGNkb3Vud2ptbGNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0ODA4ODcsImV4cCI6MjEwMDA1Njg4N30.FN9_VJxkdaqlK5OyVDd8_A9R3IOF58irZF6KE1HRBNg";
+
+    var loadingPanel = document.getElementById("loading-panel");
+    var formPanel = document.getElementById("form-panel");
+    var donePanel = document.getElementById("done-panel");
+    var invalidPanel = document.getElementById("invalid-panel");
+    var invalidMsg = document.getElementById("invalid-msg");
+    var formError = document.getElementById("form-error");
+    var form = document.getElementById("reset-form");
+    var submitBtn = document.getElementById("submit-btn");
+    var titleEl = document.getElementById("title");
+    var subtitleEl = document.getElementById("subtitle");
+
+    function show(panel) {
+      loadingPanel.classList.remove("visible");
+      formPanel.classList.remove("visible");
+      donePanel.classList.remove("visible");
+      invalidPanel.classList.remove("visible");
+      panel.classList.add("visible");
+    }
+
+    function showInvalid(message) {
+      titleEl.textContent = "无法重置密码";
+      subtitleEl.textContent = "请重新发起忘记密码";
+      invalidMsg.textContent = message;
+      show(invalidPanel);
+    }
+
+    function localizeError(err) {
+      var code = ((err && err.code) || "").toLowerCase();
+      var raw = (err && err.message) || "";
+      var message = raw.toLowerCase();
+      if (/[\u4e00-\u9fff]/.test(raw)) return raw;
+      if (code === "same_password") return "新密码不能与旧密码相同";
+      if (code === "weak_password") return "密码过于简单，请使用更安全的密码";
+      if (code === "session_not_found" || message.indexOf("session") !== -1) {
+        return "重置会话已失效，请重新申请重置密码";
+      }
+      if (message.indexOf("expired") !== -1) return "链接已过期，请重新申请重置密码";
+      return raw || "更新密码失败，请稍后再试";
+    }
+
+    var supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        detectSessionInUrl: false,
+        persistSession: false,
+        autoRefreshToken: false,
+      },
+    });
+
+    async function establishRecoverySession() {
       var hash = window.location.hash || "";
       var search = window.location.search || "";
-      var deepLink = "imemorr://auth/reset" + search + hash;
-      var manual = document.getElementById("manual");
-      var fallback = document.getElementById("fallback");
-      var status = document.getElementById("status");
+      var hashParams = new URLSearchParams(hash.charAt(0) === "#" ? hash.slice(1) : hash);
+      var searchParams = new URLSearchParams(search.charAt(0) === "?" ? search.slice(1) : search);
 
-      if (manual) {
-        manual.setAttribute("href", deepLink);
+      var errorCode = searchParams.get("error") || hashParams.get("error");
+      var errorDesc = searchParams.get("error_description") || hashParams.get("error_description");
+      if (errorCode) {
+        throw new Error(errorDesc ? decodeURIComponent(errorDesc.replace(/\+/g, " ")) : "链接无效或已过期");
       }
 
-      // No tokens / code → recovery link was incomplete or already consumed
-      var hasHashToken = /access_token=/.test(hash) || /refresh_token=/.test(hash);
-      var hasCode = /[?&]code=/.test(search);
-      if (!hasHashToken && !hasCode) {
-        status.textContent = "链接无效或已过期。请回到 App 重新申请重置密码。";
-        fallback.classList.add("visible");
+      var code = searchParams.get("code") || hashParams.get("code");
+      if (code) {
+        var exchanged = await supabase.auth.exchangeCodeForSession(code);
+        if (exchanged.error) throw exchanged.error;
+        return exchanged.data.session;
+      }
+
+      var accessToken = hashParams.get("access_token");
+      var refreshToken = hashParams.get("refresh_token");
+      if (accessToken && refreshToken) {
+        var setResult = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        });
+        if (setResult.error) throw setResult.error;
+        return setResult.data.session;
+      }
+
+      var tokenHash = searchParams.get("token_hash");
+      var type = searchParams.get("type") || hashParams.get("type");
+      if (tokenHash && type) {
+        var verified = await supabase.auth.verifyOtp({
+          token_hash: tokenHash,
+          type: type,
+        });
+        if (verified.error) throw verified.error;
+        return verified.data.session;
+      }
+
+      return null;
+    }
+
+    try {
+      var session = await establishRecoverySession();
+      if (!session) {
+        showInvalid("链接无效或已过期。请回到 App 重新申请重置密码。");
+      } else {
+        // Clear tokens from address bar without reload
+        if (window.history && window.history.replaceState) {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+        show(formPanel);
+      }
+    } catch (err) {
+      console.error("[auth-reset] session error:", err);
+      showInvalid(localizeError(err) || "链接无效或已过期。请回到 App 重新申请重置密码。");
+    }
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      formError.classList.remove("visible");
+      formError.textContent = "";
+
+      var password = document.getElementById("password").value;
+      var confirm = document.getElementById("confirm").value;
+
+      if (!password || password.length < 6) {
+        formError.textContent = "密码长度必须大于 6 位";
+        formError.classList.add("visible");
+        return;
+      }
+      if (password !== confirm) {
+        formError.textContent = "两次输入的密码不一致";
+        formError.classList.add("visible");
         return;
       }
 
-      window.location.href = deepLink;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "更新中…";
 
-      setTimeout(function () {
-        fallback.classList.add("visible");
-        status.textContent = "如果 App 没有打开，请使用下方链接手动打开。";
-      }, 1200);
-    })();
+      try {
+        var result = await supabase.auth.updateUser({ password: password });
+        if (result.error) throw result.error;
+        await supabase.auth.signOut({ scope: "local" }).catch(function () {});
+        titleEl.textContent = "密码已更新";
+        subtitleEl.textContent = "可以使用新密码登录了";
+        show(donePanel);
+      } catch (err) {
+        console.error("[auth-reset] update error:", err);
+        formError.textContent = localizeError(err);
+        formError.classList.add("visible");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "更新密码";
+      }
+    });
   </script>
 </body>
 </html>
